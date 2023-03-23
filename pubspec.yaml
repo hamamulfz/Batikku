@@ -37,8 +37,9 @@ dependencies:
   google_fonts: ^2.3.0
   carousel_slider: ^4.2.1
   image_picker: ^0.8.6+1
-
-
+  camera:
+  get:
+  tflite: ^1.1.2
 
 dev_dependencies:
   flutter_test:
