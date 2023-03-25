@@ -17,13 +17,13 @@ class _OnboardingPageState extends State<OnboardingPage> {
   List<String> titles = [
     'Batik Papua',
     'Batik Papua',
-    'Aplikasi Identifikasi\nMotif Batik Papua',
+    'Model\nAplikasi Batikku',
   ];
 
   List<String> subtitles = [
     'Adalah Pakaian Khas Dari Wilayah Papua Dan Mulai Dikembangkan Tahun 1985',
     'Memiliki Julukan Batik Port Numbay\nDengan Beragam Jenis Dan Motifnya',
-    'Dengan Aplikasi Ini Mudah\nUntuk Mengidentifikasi Motif Serta Asal Batik',
+    'Memiliki tujuan untuk identifikasi Motif batik, asal,\ndan harga batik dengan Machine Learning',
   ];
 
   @override
@@ -46,7 +46,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 ),
                 Image.asset(
                   'assets/img_onboarding3.png',
-                  height: 331,
+                  height: 250,
                 ),
               ],
               options: CarouselOptions(
@@ -198,7 +198,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                               ),
                             ),
                           ],
-                        )
+                        ),
                 ],
               ),
             ),

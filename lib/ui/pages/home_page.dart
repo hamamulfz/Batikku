@@ -40,8 +40,11 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  bool isWorking = false;
+
   runModel() async {
-    if (cameraImage != null) {
+    if (cameraImage != null && !isWorking) {
+      isWorking = true;
       var predictions = await Tflite.runModelOnFrame(
         bytesList: cameraImage!.planes.map((plane) {
           return plane.bytes;
@@ -60,6 +63,7 @@ class _HomePageState extends State<HomePage> {
           output = element['label'];
         });
       });
+      isWorking = false;
     }
   }
 
@@ -72,15 +76,25 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Aplikasi identifikasi Motif"),
+        backgroundColor: brownBackgroundColor,
+        leading: Icon(Icons.home),
+        title: Text(
+          "AR identifikasi Motif",
+          style: blackTextStyle.copyWith(
+            fontSize: 20,
+            fontWeight: semiBold,
+            color: lightBackgroundColor,
+          ),
+        ),
       ),
+      backgroundColor: lightBackgroundColor,
       body: Column(
         children: [
           Padding(
             padding: EdgeInsets.all(20),
             child: Container(
-              height: MediaQuery.of(context).size.height * 0.7,
-              width: MediaQuery.of(context).size.width * 0.7,
+              height: MediaQuery.of(context).size.height * 0.5,
+              width: MediaQuery.of(context).size.width * 0.9,
               child: !cameraController!.value.isInitialized
                   ? Container()
                   : AspectRatio(
@@ -97,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                 fontWeight: bold,
               ),
             ),
-          )
+          ),
         ],
       ),
     );
