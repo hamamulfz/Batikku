@@ -77,7 +77,6 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: brownBackgroundColor,
-        leading: Icon(Icons.home),
         title: Text(
           "AR identifikasi Motif",
           style: blackTextStyle.copyWith(
