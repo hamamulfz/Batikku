@@ -6,7 +6,6 @@ import 'package:batikku/ui/pages/detail_page.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:tflite/tflite.dart';
-import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -20,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   CameraController? cameraController;
   String output = " ";
 
-  // list ini akan menampung semua hasil prediksi selama 10 detik
+  // list ini akan menampung semua hasil prediksi selama 5 detik
   List<int> results = [];
   // 2 variabel berikut akan menyimpan mapping untuk ditampilkan ke UI
   Map<String, String> mapping = {
@@ -54,7 +53,7 @@ class _HomePageState extends State<HomePage> {
     loadCamera();
     loadmodel();
     // timer ini berfungsi menghapus semua hasil prediksi yang tersimpan secara periodik.
-    Timer.periodic(Duration(seconds: 10), (timer) {
+    Timer.periodic(const Duration(seconds: 5), (timer) {
       resetResult();
     });
   }
@@ -93,18 +92,15 @@ class _HomePageState extends State<HomePage> {
         threshold: 0.1,
         asynch: true,
       );
-      print("here" + output);
+      print("here$output");
 
-      predictions!.forEach((element) {
+      for (var element in predictions!) {
         setState(() {
           output = element['label'];
         });
 
-        if (output is String) {
-          // disini kita akan memasukkan hasil prediksi ke dalam list, agar nanti bisa didapatkan average hasil prediksi
-          results.add(int.parse(output[0]));
-        }
-      });
+        results.add(int.parse(output[0]));
+      }
       isWorking = false;
     }
   }
@@ -135,8 +131,8 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.all(20),
-            child: Container(
+            padding: const EdgeInsets.all(20),
+            child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.5,
               width: MediaQuery.of(context).size.width * 0.9,
               child: !cameraController!.value.isInitialized
@@ -157,6 +153,10 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+
+          const SizedBox(
+            height: 20,
+          ),
           // menampilkan hasil prediksi dengan menggunakan nama saja
           // jaga2 kalau baru running nilainya null, maka return container
           Builder(builder: (context) {
@@ -164,7 +164,7 @@ class _HomePageState extends State<HomePage> {
             return Container(
               child: Text(
                 // output,
-                mapping["${average}"] ?? "....",
+                mapping["$average"] ?? "....",
                 style: blackTextStyle.copyWith(
                   fontSize: 20,
                   fontWeight: bold,
@@ -172,6 +172,7 @@ class _HomePageState extends State<HomePage> {
               ),
             );
           }),
+
           // menampilkan detail hasil prediksi dengan menggunakan nama saja
           // jaga2 kalau baru running nilainya null, maka return container
           Builder(builder: (context) {
@@ -179,7 +180,7 @@ class _HomePageState extends State<HomePage> {
             return Container(
               child: Text(
                 // output,
-                mappingDesc["${average}"] ?? "....",
+                mappingDesc["$average"] ?? "....",
                 style: blackTextStyle.copyWith(
                   fontSize: 20,
                   fontWeight: bold,
@@ -187,6 +188,9 @@ class _HomePageState extends State<HomePage> {
               ),
             );
           }),
+          const SizedBox(
+            height: 10,
+          ),
           ElevatedButton(
             onPressed: () {
               if (results.average() != null) {
@@ -194,13 +198,25 @@ class _HomePageState extends State<HomePage> {
                   builder: (context) => DetailPage(result: results.average()!),
                 ));
               } else {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text("Try again"),
                   duration: Duration(seconds: 4),
                 ));
               }
             },
-            child: Text("Baca selengkapnya"),
+            style: TextButton.styleFrom(
+              backgroundColor:
+                  brownBackgroundColor, // Warna latar belakang tombol
+              shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(56), // Jari-jari border tombol
+              ),
+            ),
+            child: Text("Baca selengkapnya",
+                style: whiteTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: semiBold,
+                )),
           ),
           // button reset manual kalau diperlukan
           // ElevatedButton(

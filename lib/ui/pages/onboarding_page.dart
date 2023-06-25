@@ -13,13 +13,13 @@ class OnboardingPage extends StatefulWidget {
 class _OnboardingPageState extends State<OnboardingPage> {
   int currentIndex = 0;
   CarouselController carouselController = CarouselController();
-
+  // Menampung data Titles dari slide 1-3
   List<String> titles = [
     'Batik Papua',
     'Batik Papua',
     'Model\nAplikasi Batikku',
   ];
-
+  // menampung data Subtitles dari slide 1-3
   List<String> subtitles = [
     'Adalah Pakaian Khas Dari Wilayah Papua Dan Mulai Dikembangkan Tahun 1985',
     'Memiliki Julukan Batik Port Numbay\nDengan Beragam Jenis Dan Motifnya',
@@ -34,6 +34,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // Menampung data Assets images didalams OnBordingPage
             CarouselSlider(
               items: [
                 Image.asset(

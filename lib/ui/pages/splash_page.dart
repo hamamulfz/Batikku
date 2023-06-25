@@ -18,7 +18,7 @@ class _SplashPageState extends State<SplashPage>
   @override
   void initState() {
     super.initState();
-
+    // Membuat Animasi di splash Screen
     _animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 1));
     _animation = CurvedAnimation(
@@ -27,7 +27,8 @@ class _SplashPageState extends State<SplashPage>
     _animationController.forward();
 
     Timer(
-      const Duration(seconds: 5),
+      // Mengatur durasi berapa lama animasi di splash screen berjalan
+      const Duration(seconds: 10),
       () {
         Navigator.pushReplacement(
           context,
@@ -37,6 +38,13 @@ class _SplashPageState extends State<SplashPage>
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    // Menghentikan animasi dan membebaskan sumber daya
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -66,10 +74,18 @@ class _SplashPageState extends State<SplashPage>
                   width: 150,
                   height: 150,
                   decoration: BoxDecoration(
-                    image: DecorationImage(
+                    image: const DecorationImage(
                       image: AssetImage('assets/img_logo.png'),
                     ),
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(100),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.white.withOpacity(0.8),
+                        spreadRadius: 8,
+                        blurRadius: 5,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(height: 20),
