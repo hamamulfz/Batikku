@@ -23,22 +23,20 @@ class _HomePageState extends State<HomePage> {
   List<int> results = [];
   // 2 variabel berikut akan menyimpan mapping untuk ditampilkan ke UI
   Map<String, String> mapping = {
-    "0": "Asimetris",
-    "1": "Asmat",
-    "2": "Burung Cendrawasih",
-    "3": "Kamoro",
-    "4": "Prada",
-    "5": "Sentani",
-    "6": "Tifa Honai",
+    "0": "Motif Asmat",
+    "1": "Motif Cendrawasih",
+    "2": "Motif Kamoro",
+    "3": "Motif Parada",
+    "4": "Motif Sentani",
+    "5": "Motif Tifa Honai",
   };
   Map<String, String> mappingDesc = {
-    "0": "penjelasan Asimetris",
-    "1": "penjelasan Asmat",
-    "2": "penjelasan Burung",
-    "3": "penjelasan Kamoro",
-    "4": "penjelasan Prada",
-    "5": "penjelasan Sentani",
-    "6": "penjelasan Tifa Honai",
+    "0": "penjelasan Asmat",
+    "1": "penjelasan Cendrawasih",
+    "2": "penjelasan Kamoro",
+    "3": "penjelasan Parada",
+    "4": "penjelasan Sentani",
+    "5": "penjelasan Tifa Honai",
   };
 
   // fungsi untuk mengahpus semua hasil prediksi agar tetap valid saat dijalankan dalam waktu yang lama

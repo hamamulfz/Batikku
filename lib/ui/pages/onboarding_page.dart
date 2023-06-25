@@ -23,7 +23,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   List<String> subtitles = [
     'Adalah Pakaian Khas Dari Wilayah Papua Dan Mulai Dikembangkan Tahun 1985',
     'Memiliki Julukan Batik Port Numbay\nDengan Beragam Jenis Dan Motifnya',
-    'Memiliki tujuan untuk identifikasi Motif batik, asal,\ndan harga batik dengan Machine Learning',
+    'Memiliki tujuan untuk identifikasi Motif batik, Keterangan,\ndan Harga batik dengan Machine Learning',
   ];
 
   @override

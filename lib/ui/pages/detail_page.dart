@@ -11,29 +11,43 @@ class DetailPage extends StatelessWidget {
     BatikDetailModel(
         // assets nya nanti di tambahkan ke dalam folder assets untuk mengambil data foto dari batik yang nanti di ambil dari toko
         0,
-        "Asimetris",
-        "penjelasan Asimetris",
+        "Motif Asmat",
+        "Namanya diambil dari suku asli penghuni Bumi Cendrawasih. Batik ini umumnya didominasi corak ukiran khas suku Asmat, seperti patung-patung duduk kayu yang menggambarkan keunikan dan tradisi patung ukir kayu dari masyarakat suku Asmat Papua",
         [
-          'assets/img_onboarding1.png'
+          'assets/img_motif_asmat.png'
         ], // contoh untuk memanggil data foto "assets/asimetris.png"
-        "Price: 160rb"),
-    BatikDetailModel(1, "Asmat", "penjelasan Asmat",
-        ['assets/img_onboarding1.png'], "Price: 160rb"),
-    BatikDetailModel(2, "Burung", "penjelasan Burung",
-        ['assets/img_onboarding2.png'], "Price: 160rb"),
+        "Price: Rp. 98.000-"),
+    BatikDetailModel(
+        1,
+        "Motif Cendrawasih",
+        "Motif batik ini menonjolkan kecantikan burung cendrawasih dan alat musik Tifa. Warna-warna batiknya didominasi hijau, merah, dan kuning keemasan. Batik bermotif burung cendrawasih yang gagah memberikan kesan tegas pada penampilan pemakainya.",
+        ['assets/img_motif_cendrawasih.png'],
+        "Price: Rp. 107.000-"),
+    BatikDetailModel(
+        2,
+        "Motif Kamoro",
+        "Motifnya melambangkan simbol Patung Berdiri membawa tombak. Motif Komoro menggambarkan kreativitas, semangat, keberanian penduduk asli Papua seperti kombinasi biru dan hijau, hitam dan kuning, merah dan merah muda.",
+        ['assets/img_motif_kamoro.png'],
+        "Price: Rp. 135.000"),
     BatikDetailModel(
         // coba penjelasan
         3,
-        "Kamoro",
-        "penjelasan Kamoro : There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc. ",
-        ['assets/img_onboarding3.png'],
-        "Price: 160rb"),
-    BatikDetailModel(4, "Prada", "penjelasan Prada",
-        ['assets/img_onboarding1.png'], "Price: 160rb"),
-    BatikDetailModel(5, "Sentani", "penjelasan Sentani",
-        ['assets/img_onboarding1.png'], "Price: 160rb"),
-    BatikDetailModel(6, "Tifa Honai", "penjelasan Tifa Honai",
-        ['assets/img_onboarding1.png'], "Price: 160rb"),
+        "Motif Parada",
+        "Motif Prada menawarkan kemewahan dan kemegahan dengan sentuhan garis-garis emas. “Prada” adalah tekstil batik yang dihiasi dengan tinta emas. Motif Prada Papua mengadopsi peninggalan arkeologi di Papua. Motifnya sebagian besar diambil dari lukisan dinding gua di Biak di Papua Barat dan wilayah kabupaten Jayapura di Papua.",
+        ['assets/img_motif_pradapapua.png'],
+        "Price: Rp. 140.000"),
+    BatikDetailModel(
+        4,
+        "Motif Sentani",
+        "Batik Sentani dengan motifnya yang menampilkan alur batang kayu yang melingkar dengan sentuhan garis-garis emas. Batik ini memiliki filosofi yang unik, menggambarkan tanah Papua yang sangat subur dan kaya akan hasil bumi.",
+        ['assets/img_motif_sentani.png'],
+        "Price: Rp. 98.000"),
+    BatikDetailModel(
+        5,
+        "Motif Tifa Honai",
+        "Batik Tifa Honai memiliki filosofi yang cukup kuat. Sesuai namanya, Honai sebagai rumah adat Papua melambangkan keluarga, sedangkan alat musik tifa menonjolkan kebahagiaan. Keduanya bermakna kebersamaan keluarga yang bahagia. Motif ini juga terinspirasi kekayaan alam di Pulau Emas, seperti sumber mata air dan pemandangan yang indah.",
+        ['assets/img_motif_tifahonai.png'],
+        "Price: Rp. 99.00"),
   ];
 
   @override
@@ -44,7 +58,14 @@ class DetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: brownBackgroundColor,
-        title: const Text("Batik Information"),
+        title: Text(
+          "Batik Information",
+          style: blackTextStyle.copyWith(
+            fontSize: 20,
+            fontWeight: semiBold,
+            color: lightBackgroundColor,
+          ),
+        ),
       ),
       // menggunkan singlechildscrollview karna apa bila widget desc melebih 300 kata kan bisa di scroll ke bawa  untuk dibaca
       body: SingleChildScrollView(
@@ -52,6 +73,7 @@ class DetailPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const SizedBox(height: 50),
               selected.images.isNotEmpty
                   ? Image.asset(
                       selected.images.first,
@@ -61,17 +83,17 @@ class DetailPage extends StatelessWidget {
               const SizedBox(height: 20),
               Text(
                 selected.name,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+                style: blackTextStyle.copyWith(
+                  fontSize: 25,
+                  fontWeight: semiBold,
                 ),
               ),
               const SizedBox(height: 20),
               Text(
                 selected.price,
-                style: const TextStyle(
+                style: blackTextStyle.copyWith(
                   fontSize: 15,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: bold,
                 ),
               ),
               const SizedBox(height: 20),
@@ -80,8 +102,8 @@ class DetailPage extends StatelessWidget {
                 child: Text(
                   selected.desc,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 18,
+                  style: blackTextStyle.copyWith(
+                    fontSize: 15,
                   ),
                 ),
               ),

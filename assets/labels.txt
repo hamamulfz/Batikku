@@ -1,7 +1,6 @@
-0 Asimetris
-1 Asmat
-2 Burung Cendrawasih
-3 Kamoro
-4 Prada
-5 Sentani
-6 Tifa Honai
+0 Motif Asmat
+1 Motif Cendrawasih
+2 Motif Kamoro
+3 Motif Parada
+4 Motif Sentani
+5 Motif Tifa Honai
