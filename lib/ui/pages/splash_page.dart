@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:batikku/shared/theme.dart';
-import 'package:batikku/ui/pages/onboarding_page.dart';
+
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {
@@ -28,14 +28,9 @@ class _SplashPageState extends State<SplashPage>
 
     Timer(
       // Mengatur durasi berapa lama animasi di splash screen berjalan
-      const Duration(seconds: 10),
+      const Duration(seconds: 3),
       () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const OnboardingPage(),
-          ),
-        );
+        Navigator.of(context).pushNamed('/onboardingpage');
       },
     );
   }

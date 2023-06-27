@@ -42,6 +42,9 @@ dependencies:
   tflite: ^1.1.2
   convex_bottom_bar:
   fluttertoast: ^8.2.2
+  intl: ^0.18.1
+  provider: ^6.0.5
+  flutter_login: ^4.1.1
 
 dev_dependencies:
   flutter_test:

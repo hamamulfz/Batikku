@@ -1,5 +1,5 @@
 import 'package:batikku/shared/theme.dart';
-import 'package:batikku/ui/pages/home_page.dart';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -110,12 +110,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                               height: 50,
                               child: TextButton(
                                 onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const HomePage(),
-                                    ),
-                                  );
+                                  Navigator.pushReplacementNamed(
+                                      context, '/homepage');
                                 },
                                 style: TextButton.styleFrom(
                                   backgroundColor: brownBackgroundColor,

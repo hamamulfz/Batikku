@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> {
 
   // getter agar nulisnya ga panjang aja di UI
   get average => results.average();
-
+  // mengambil dataset
   loadmodel() async {
     await Tflite.loadModel(
         model: "assets/model.tflite", labels: "assets/labels.txt");
@@ -113,115 +113,139 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: brownBackgroundColor,
-        title: Text(
-          "AR identifikasi Motif",
-          style: blackTextStyle.copyWith(
-            fontSize: 20,
-            fontWeight: semiBold,
-            color: lightBackgroundColor,
+    return WillPopScope(
+      onWillPop: () async {
+        // Kembali ke halaman utama dan hapus semua riwayat rute sebelumnya
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/homepage', (route) => false);
+        return false; // Mengembalikan false untuk mencegah pemrosesan tombol "Back" secara default
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: brownBackgroundColor,
+          automaticallyImplyLeading: false,
+          title: Text(
+            "AR identifikasi Motif",
+            style: blackTextStyle.copyWith(
+              fontSize: 20,
+              fontWeight: semiBold,
+              color: lightBackgroundColor,
+            ),
           ),
         ),
-      ),
-      backgroundColor: lightBackgroundColor,
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.5,
-              width: MediaQuery.of(context).size.width * 0.9,
-              child: !cameraController!.value.isInitialized
-                  ? Container()
-                  : AspectRatio(
-                      aspectRatio: cameraController!.value.aspectRatio,
-                      child: CameraPreview(cameraController!),
+        backgroundColor: lightBackgroundColor,
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.5,
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: !cameraController!.value.isInitialized
+                    ? Container()
+                    : AspectRatio(
+                        aspectRatio: cameraController!.value.aspectRatio,
+                        child: CameraPreview(cameraController!),
+                      ),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+              child: Text(
+                output,
+                // mapping["${average}"] ?? "....",
+                style: blackTextStyle.copyWith(
+                  fontSize: 20,
+                  fontWeight: bold,
+                ),
+              ),
+            ),
+
+            const SizedBox(
+              height: 40,
+            ),
+            // menampilkan hasil prediksi dengan menggunakan nama saja
+            // jaga2 kalau baru running nilainya null, maka return container
+            Builder(builder: (context) {
+              if (average == null) return Container();
+              return Container(
+                child: Text(
+                  // output,
+                  mapping["$average"] ?? "....",
+                  style: blackTextStyle.copyWith(
+                    fontSize: 20,
+                    fontWeight: bold,
+                  ),
+                ),
+              );
+            }),
+
+            // menampilkan detail hasil prediksi dengan menggunakan nama saja
+            // jaga2 kalau baru running nilainya null, maka return container
+            Builder(builder: (context) {
+              if (average == null) return Container();
+              return Container(
+                child: Text(
+                  // output,
+                  mappingDesc["$average"] ?? "....",
+                  style: blackTextStyle.copyWith(
+                    fontSize: 20,
+                    fontWeight: bold,
+                  ),
+                ),
+              );
+            }),
+            const SizedBox(
+              height: 5,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (results.average() != null) {
+                  // Saat pindah halaman DetailPage, memberhentikan fungsi kamera
+                  cameraController?.stopImageStream();
+                  Navigator.of(context)
+                      .push(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          DetailPage(result: results.average()!),
                     ),
-            ),
-          ),
-          Container(
-            child: Text(
-              output,
-              // mapping["${average}"] ?? "....",
-              style: blackTextStyle.copyWith(
-                fontSize: 20,
-                fontWeight: bold,
-              ),
-            ),
-          ),
-
-          const SizedBox(
-            height: 20,
-          ),
-          // menampilkan hasil prediksi dengan menggunakan nama saja
-          // jaga2 kalau baru running nilainya null, maka return container
-          Builder(builder: (context) {
-            if (average == null) return Container();
-            return Container(
-              child: Text(
-                // output,
-                mapping["$average"] ?? "....",
-                style: blackTextStyle.copyWith(
-                  fontSize: 20,
-                  fontWeight: bold,
+                  )
+                      .then(
+                    (_) {
+                      // Saat kembali dari halaman DetailPage, aktifkan kembali fungsi kamera
+                      loadCamera();
+                    },
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text("Try again"),
+                    duration: Duration(seconds: 4),
+                  ));
+                }
+              },
+              style: TextButton.styleFrom(
+                backgroundColor:
+                    brownBackgroundColor, // Warna latar belakang tombol
+                shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.circular(56), // Jari-jari border tombol
                 ),
               ),
-            );
-          }),
-
-          // menampilkan detail hasil prediksi dengan menggunakan nama saja
-          // jaga2 kalau baru running nilainya null, maka return container
-          Builder(builder: (context) {
-            if (average == null) return Container();
-            return Container(
-              child: Text(
-                // output,
-                mappingDesc["$average"] ?? "....",
-                style: blackTextStyle.copyWith(
-                  fontSize: 20,
-                  fontWeight: bold,
-                ),
-              ),
-            );
-          }),
-          const SizedBox(
-            height: 10,
-          ),
-          ElevatedButton(
-            onPressed: () {
-              if (results.average() != null) {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => DetailPage(result: results.average()!),
-                ));
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text("Try again"),
-                  duration: Duration(seconds: 4),
-                ));
-              }
-            },
-            style: TextButton.styleFrom(
-              backgroundColor:
-                  brownBackgroundColor, // Warna latar belakang tombol
-              shape: RoundedRectangleBorder(
-                borderRadius:
-                    BorderRadius.circular(56), // Jari-jari border tombol
-              ),
+              child: Text("Baca selengkapnya",
+                  style: whiteTextStyle.copyWith(
+                    fontSize: 12,
+                    fontWeight: semiBold,
+                  )),
             ),
-            child: Text("Baca selengkapnya",
-                style: whiteTextStyle.copyWith(
-                  fontSize: 12,
-                  fontWeight: semiBold,
-                )),
-          ),
-          // button reset manual kalau diperlukan
-          // ElevatedButton(
-          //   onPressed: resetResult,
-          //   child: Text("Reset"),
-          // ),
-        ],
+            // button reset manual kalau diperlukan
+            // ElevatedButton(
+            //   onPressed: resetResult,
+            //   child: Text("Reset"),
+            // ),
+          ],
+        ),
       ),
     );
   }
@@ -234,7 +258,8 @@ extension GetAverage on List<int> {
     forEach((element) {
       sum += element;
     });
-    if (sum == 0 || isEmpty) return null;
+    if (isEmpty) return null;
+    if (sum == 0) return 0;
     double avg = sum / length;
     return avg.round();
   }
