@@ -2,8 +2,12 @@
 
 Aplikasi identifikasi motif batik papua dengan machine Learning
 
-## Run Apps
+## How to run Apps
 
-flutter pub get
+activate FVM : 
 
-flutter run
+flutter pub global activate fvm
+
+fvm flutter pub get
+
+fvm flutter run
