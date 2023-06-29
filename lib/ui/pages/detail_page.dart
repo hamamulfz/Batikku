@@ -1,9 +1,12 @@
 import 'package:batikku/model/batik_detail_model.dart';
 import 'package:batikku/shared/theme.dart';
+import 'package:batikku/ui/pages/profile_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class DetailPage extends StatelessWidget {
   DetailPage({super.key, required this.result});
+  final user = FirebaseAuth.instance.currentUser!;
   final int result;
 
   final List<BatikDetailModel> mappingDesc = [
@@ -15,38 +18,38 @@ class DetailPage extends StatelessWidget {
         [
           'assets/img_motif_asmat.png'
         ], // contoh untuk memanggil data foto "assets/asimetris.png"
-        "Price: Rp. 98.000"),
+        "Price: Rp. 98.000/Mater"),
     BatikDetailModel(
         1,
         "Motif Cendrawasih",
         "Motif batik ini menonjolkan kecantikan burung cendrawasih dan alat musik Tifa. Warna-warna batiknya didominasi hijau, merah, dan kuning keemasan. Batik bermotif burung cendrawasih yang gagah memberikan kesan tegas pada penampilan pemakainya.",
         ['assets/img_motif_cendrawasih.png'],
-        "Price: Rp. 107.000"),
+        "Price: Rp. 107.000/Meter"),
     BatikDetailModel(
         2,
         "Motif Kamoro",
         "Motifnya melambangkan simbol Patung Berdiri membawa tombak. Motif Komoro menggambarkan kreativitas, semangat, keberanian penduduk asli Papua seperti kombinasi biru dan hijau, hitam dan kuning, merah dan merah muda.",
         ['assets/img_motif_kamoro.png'],
-        "Price: Rp. 135.000"),
+        "Price: Rp. 135.000/Meter"),
     BatikDetailModel(
         // coba penjelasan
         3,
         "Motif Parada",
         "Motif Prada menawarkan kemewahan dan kemegahan dengan sentuhan garis-garis emas. “Prada” adalah tekstil batik yang dihiasi dengan tinta emas. Motif Prada Papua mengadopsi peninggalan arkeologi di Papua. Motifnya sebagian besar diambil dari lukisan dinding gua di Biak di Papua Barat dan wilayah kabupaten Jayapura di Papua.",
         ['assets/img_motif_pradapapua.png'],
-        "Price: Rp. 140.000"),
+        "Price: Rp. 140.000/Meter"),
     BatikDetailModel(
         4,
         "Motif Sentani",
         "Batik Sentani dengan motifnya yang menampilkan alur batang kayu yang melingkar dengan sentuhan garis-garis emas. Batik ini memiliki filosofi yang unik, menggambarkan tanah Papua yang sangat subur dan kaya akan hasil bumi.",
         ['assets/img_motif_sentani.png'],
-        "Price: Rp. 98.000"),
+        "Price: Rp. 98.000/Meter"),
     BatikDetailModel(
         5,
         "Motif Tifa Honai",
         "Batik Tifa Honai memiliki filosofi yang cukup kuat. Sesuai namanya, Honai sebagai rumah adat Papua melambangkan keluarga, sedangkan alat musik tifa menonjolkan kebahagiaan. Keduanya bermakna kebersamaan keluarga yang bahagia. Motif ini juga terinspirasi kekayaan alam di Pulau Emas, seperti sumber mata air dan pemandangan yang indah.",
         ['assets/img_motif_tifahonai.png'],
-        "Price: Rp. 99.000"),
+        "Price: Rp. 99.000/Meter"),
   ];
 
   @override
@@ -57,13 +60,31 @@ class DetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: brownBackgroundColor,
-        title: Text(
-          "Batik Information",
-          style: blackTextStyle.copyWith(
-            fontSize: 20,
-            fontWeight: semiBold,
-            color: lightBackgroundColor,
-          ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "Batik Information",
+              style: blackTextStyle.copyWith(
+                fontSize: 20,
+                fontWeight: semiBold,
+                color: lightBackgroundColor,
+              ),
+            ),
+            IconButton(
+                icon: Icon(
+                  Icons.person,
+                  color: lightBackgroundColor,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProfilePage(),
+                    ),
+                  );
+                }),
+          ],
         ),
       ),
       body: SafeArea(

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:batikku/shared/theme.dart';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -30,7 +31,7 @@ class _SplashPageState extends State<SplashPage>
       // Mengatur durasi berapa lama animasi di splash screen berjalan
       const Duration(seconds: 3),
       () {
-        Navigator.of(context).pushNamed('/onboardingpage');
+        Navigator.of(context).pushNamed('/registerpage');
       },
     );
   }
@@ -86,7 +87,7 @@ class _SplashPageState extends State<SplashPage>
                 const SizedBox(height: 20),
                 Text(
                   'Selamat Datang',
-                  style: TextStyle(
+                  style: GoogleFonts.poppins(
                     color: whiteColor,
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -95,19 +96,19 @@ class _SplashPageState extends State<SplashPage>
                 const SizedBox(height: 10),
                 Text(
                   'Di Aplikasi Batikku',
-                  style: TextStyle(
+                  style: GoogleFonts.poppins(
                     color: whiteColor,
                     fontSize: 18,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 320),
                 Text(
                   '@Support for Griya Batik Ilham',
-                  style: TextStyle(
+                  style: GoogleFonts.poppins(
                     color: whiteColor,
                     fontSize: 10,
-                    fontWeight: FontWeight.w300,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ],

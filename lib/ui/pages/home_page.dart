@@ -4,14 +4,22 @@ import 'package:batikku/main.dart';
 import 'package:batikku/shared/theme.dart';
 import 'package:batikku/ui/pages/detail_page.dart';
 import 'package:camera/camera.dart';
+
 import 'package:flutter/material.dart';
 import 'package:tflite/tflite.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  // final User user;
+  const HomePage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
+
+  void loadCamera() {}
+
+  void loadmodel() {}
 }
 
 class _HomePageState extends State<HomePage> {
@@ -54,7 +62,9 @@ class _HomePageState extends State<HomePage> {
     Timer.periodic(const Duration(seconds: 5), (timer) {
       resetResult();
     });
+    // Jalankan fungsi-fungsi yang diperlukan di sini
   }
+  // Jalankan fungsi-fungsi yang diperlukan di sini
 
   loadCamera() {
     cameraController = CameraController(cameras![0], ResolutionPreset.medium);

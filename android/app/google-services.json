@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "352182340315",
+    "project_id": "batikku-3ecbb",
+    "storage_bucket": "batikku-3ecbb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:352182340315:android:9cd2693ca5260b3ee95afe",
+        "android_client_info": {
+          "package_name": "com.example.batikku"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "352182340315-o51s6hf1d1ujdfur8d0dhft0rlo33he3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLiwYj7gVWbywRzoCq01_WIU1YMFN3yVs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "352182340315-o51s6hf1d1ujdfur8d0dhft0rlo33he3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
