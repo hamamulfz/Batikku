@@ -21,6 +21,9 @@ class _RegisterPageState extends State<RegisterPage> {
   final _lastNameController = TextEditingController();
   final _ageController = TextEditingController();
 
+  bool passObscure = true;
+  bool repassObscure = true;
+
   @override
   void dispose() {
     _emailController.dispose();
@@ -35,6 +38,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Future signUp() async {
     // authenticate user
     if (passwordConfirmed()) {
+      print("pass ok");
       // create user
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
@@ -49,15 +53,18 @@ class _RegisterPageState extends State<RegisterPage> {
           int.parse(_ageController.text.trim()));
 
       Navigator.of(context).pushNamed('/homepage');
+    } else {
+      print("pass not ok");
     }
   }
 
   Future addUserDetails(
       String firstName, String lastName, String email, int age) async {
-    await FirebaseFirestore.instance.collection('coba1').add(
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    await FirebaseFirestore.instance.collection('users').doc("$uid").set(
       {
-        'first name': firstName,
-        'last name': lastName,
+        'first_name': firstName,
+        'last_name': lastName,
         'email': email,
         'age': age,
       },
@@ -164,6 +171,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       padding: const EdgeInsets.only(left: 25.0),
                       child: TextField(
                         controller: _ageController,
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: 'Age',
@@ -186,6 +194,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 25.0),
                       child: TextField(
+                        keyboardType: TextInputType.emailAddress,
                         controller: _emailController,
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -210,8 +219,16 @@ class _RegisterPageState extends State<RegisterPage> {
                       padding: const EdgeInsets.only(left: 25.0),
                       child: TextField(
                         controller: _passwordController,
-                        obscureText: true,
+                        obscureText: passObscure,
                         decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                              onPressed: () {
+                                passObscure = !passObscure;
+                                setState(() {});
+                              },
+                              icon: Icon(passObscure
+                                  ? Icons.remove_red_eye
+                                  : Icons.remove_red_eye_outlined)),
                           border: InputBorder.none,
                           hintText: 'Password',
                         ),
@@ -233,8 +250,16 @@ class _RegisterPageState extends State<RegisterPage> {
                       padding: const EdgeInsets.only(left: 25.0),
                       child: TextField(
                         controller: _confirmpasswordController,
-                        obscureText: true,
+                        obscureText: repassObscure,
                         decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                              onPressed: () {
+                                repassObscure = !repassObscure;
+                                setState(() {});
+                              },
+                              icon: Icon(repassObscure
+                                  ? Icons.remove_red_eye
+                                  : Icons.remove_red_eye_outlined)),
                           border: InputBorder.none,
                           hintText: 'Confirm Password',
                         ),
