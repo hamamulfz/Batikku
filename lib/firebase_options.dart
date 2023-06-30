@@ -63,7 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '352182340315',
     projectId: 'batikku-3ecbb',
     storageBucket: 'batikku-3ecbb.appspot.com',
-    iosClientId: '352182340315-gcljvtv8oqjrba5lb3srdjt3tidgi5il.apps.googleusercontent.com',
+    iosClientId:
+        '352182340315-gcljvtv8oqjrba5lb3srdjt3tidgi5il.apps.googleusercontent.com',
     iosBundleId: 'com.example.batikku',
   );
 }

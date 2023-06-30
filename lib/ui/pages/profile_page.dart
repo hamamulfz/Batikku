@@ -29,7 +29,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => LoginPage(
-                      showRegisterPage: () {},
+                      showRegisterPage: () {
+                        Navigator.pushNamed(context, '/registerpage');
+                      },
                     ),
                   ),
                   (route) => false,

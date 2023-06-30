@@ -31,7 +31,7 @@ class _SplashPageState extends State<SplashPage>
       // Mengatur durasi berapa lama animasi di splash screen berjalan
       const Duration(seconds: 3),
       () {
-        Navigator.of(context).pushNamed('/registerpage');
+        Navigator.of(context).pushNamed('/onboardingpage');
       },
     );
   }

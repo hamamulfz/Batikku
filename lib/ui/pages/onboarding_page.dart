@@ -28,178 +28,186 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: lightBackgroundColor,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Menampung data Assets images didalams OnBordingPage
-            CarouselSlider(
-              items: [
-                Image.asset(
-                  'assets/img_onboarding1.png',
-                  height: 331,
-                ),
-                Image.asset(
-                  'assets/img_onboarding2.png',
-                  height: 331,
-                ),
-                Image.asset(
-                  'assets/img_onboarding3.png',
-                  height: 250,
-                ),
-              ],
-              options: CarouselOptions(
-                height: 331,
-                viewportFraction: 1,
-                enableInfiniteScroll: false,
-                onPageChanged: (index, reason) {
-                  setState(
-                    () {
-                      currentIndex = index;
-                    },
-                  );
-                },
-              ),
-              carouselController: carouselController,
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(
-                horizontal: 24,
-              ),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 22,
-                vertical: 24,
-              ),
-              decoration: BoxDecoration(
-                color: whiteColor,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    titles[currentIndex],
-                    style: blackTextStyle.copyWith(
-                      fontSize: 20,
-                      fontWeight: semiBold,
-                    ),
-                    textAlign: TextAlign.center,
+    return WillPopScope(
+      onWillPop: () async {
+        // Kembali ke halaman utama dan hapus semua riwayat rute sebelumnya
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/onboardingpage', (route) => false);
+        return false; // Mengembalikan false untuk mencegah pemrosesan tombol "Back" secara default
+      },
+      child: Scaffold(
+        backgroundColor: lightBackgroundColor,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Menampung data Assets images didalams OnBordingPage
+              CarouselSlider(
+                items: [
+                  Image.asset(
+                    'assets/img_onboarding1.png',
+                    height: 331,
                   ),
-                  const SizedBox(
-                    height: 26,
+                  Image.asset(
+                    'assets/img_onboarding2.png',
+                    height: 331,
                   ),
-                  Text(
-                    subtitles[currentIndex],
-                    style: greyTextStyle.copyWith(
-                      fontSize: 16,
-                    ),
-                    textAlign: TextAlign.center,
+                  Image.asset(
+                    'assets/img_onboarding3.png',
+                    height: 250,
                   ),
-                  SizedBox(
-                    height: currentIndex == 2 ? 30 : 50,
-                  ),
-                  currentIndex == 2
-                      ? Column(
-                          children: [
-                            SizedBox(
-                              width: double.infinity,
-                              height: 50,
-                              child: TextButton(
-                                onPressed: () {
-                                  Navigator.pushReplacementNamed(
-                                      context, '/homepage');
-                                },
-                                style: TextButton.styleFrom(
-                                  backgroundColor: brownBackgroundColor,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(56),
-                                  ),
-                                ),
-                                child: Text(
-                                  'Get Started',
-                                  style: whiteTextStyle.copyWith(
-                                    fontSize: 16,
-                                    fontWeight: semiBold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
-                      : Row(
-                          children: [
-                            Container(
-                              width: 12,
-                              height: 12,
-                              margin: const EdgeInsets.only(
-                                right: 10,
-                              ),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: currentIndex == 0
-                                    ? brownBackgroundColor
-                                    : lightBackgroundColor,
-                              ),
-                            ),
-                            Container(
-                              width: 12,
-                              height: 12,
-                              margin: const EdgeInsets.only(
-                                right: 10,
-                              ),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: currentIndex == 1
-                                    ? brownBackgroundColor
-                                    : lightBackgroundColor,
-                              ),
-                            ),
-                            Container(
-                              width: 12,
-                              height: 12,
-                              margin: const EdgeInsets.only(
-                                right: 10,
-                              ),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: currentIndex == 2
-                                    ? brownBackgroundColor
-                                    : lightBackgroundColor,
-                              ),
-                            ),
-                            const Spacer(),
-                            SizedBox(
-                              width: 150,
-                              height: 50,
-                              child: TextButton(
-                                onPressed: () {
-                                  carouselController.nextPage();
-                                },
-                                style: TextButton.styleFrom(
-                                  backgroundColor: brownBackgroundColor,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(56),
-                                  ),
-                                ),
-                                child: Text(
-                                  'Continue',
-                                  style: whiteTextStyle.copyWith(
-                                    fontSize: 16,
-                                    fontWeight: semiBold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
                 ],
+                options: CarouselOptions(
+                  height: 331,
+                  viewportFraction: 1,
+                  enableInfiniteScroll: false,
+                  onPageChanged: (index, reason) {
+                    setState(
+                      () {
+                        currentIndex = index;
+                      },
+                    );
+                  },
+                ),
+                carouselController: carouselController,
               ),
-            ),
-          ],
+              const SizedBox(
+                height: 40,
+              ),
+              Container(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 22,
+                  vertical: 24,
+                ),
+                decoration: BoxDecoration(
+                  color: whiteColor,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      titles[currentIndex],
+                      style: blackTextStyle.copyWith(
+                        fontSize: 20,
+                        fontWeight: semiBold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(
+                      height: 26,
+                    ),
+                    Text(
+                      subtitles[currentIndex],
+                      style: greyTextStyle.copyWith(
+                        fontSize: 16,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(
+                      height: currentIndex == 2 ? 30 : 50,
+                    ),
+                    currentIndex == 2
+                        ? Column(
+                            children: [
+                              SizedBox(
+                                width: double.infinity,
+                                height: 50,
+                                child: TextButton(
+                                  onPressed: () {
+                                    Navigator.pushReplacementNamed(
+                                        context, '/loginpage');
+                                  },
+                                  style: TextButton.styleFrom(
+                                    backgroundColor: brownBackgroundColor,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(56),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'Login',
+                                    style: whiteTextStyle.copyWith(
+                                      fontSize: 16,
+                                      fontWeight: semiBold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        : Row(
+                            children: [
+                              Container(
+                                width: 12,
+                                height: 12,
+                                margin: const EdgeInsets.only(
+                                  right: 10,
+                                ),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: currentIndex == 0
+                                      ? brownBackgroundColor
+                                      : lightBackgroundColor,
+                                ),
+                              ),
+                              Container(
+                                width: 12,
+                                height: 12,
+                                margin: const EdgeInsets.only(
+                                  right: 10,
+                                ),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: currentIndex == 1
+                                      ? brownBackgroundColor
+                                      : lightBackgroundColor,
+                                ),
+                              ),
+                              Container(
+                                width: 12,
+                                height: 12,
+                                margin: const EdgeInsets.only(
+                                  right: 10,
+                                ),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: currentIndex == 2
+                                      ? brownBackgroundColor
+                                      : lightBackgroundColor,
+                                ),
+                              ),
+                              const Spacer(),
+                              SizedBox(
+                                width: 150,
+                                height: 50,
+                                child: TextButton(
+                                  onPressed: () {
+                                    carouselController.nextPage();
+                                  },
+                                  style: TextButton.styleFrom(
+                                    backgroundColor: brownBackgroundColor,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(56),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'Continue',
+                                    style: whiteTextStyle.copyWith(
+                                      fontSize: 16,
+                                      fontWeight: semiBold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

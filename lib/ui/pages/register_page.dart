@@ -32,36 +32,61 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
-  Future signUp() async {
-    // authenticate user
-    if (passwordConfirmed()) {
-      // create user
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
+  Future<void> signUp() async {
+    try {
+      // authenticate user
+      if (passwordConfirmed()) {
+        // create user
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
+
+        // add user details
+        addUserDetails(
+            _firstNameController.text.trim(),
+            _lastNameController.text.trim(),
+            _emailController.text.trim(),
+            int.parse(_ageController.text.trim()));
+
+        if (!context.mounted) return;
+        Navigator.of(context).pushReplacementNamed('/homepage');
+      }
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Sign Up Error'),
+            content: Text(e.toString()),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
       );
-
-      // add user details
-      addUserDetails(
-          _firstNameController.text.trim(),
-          _lastNameController.text.trim(),
-          _emailController.text.trim(),
-          int.parse(_ageController.text.trim()));
-
-      Navigator.of(context).pushNamed('/homepage');
     }
   }
 
   Future addUserDetails(
       String firstName, String lastName, String email, int age) async {
-    await FirebaseFirestore.instance.collection('coba1').add(
-      {
-        'first name': firstName,
-        'last name': lastName,
-        'email': email,
-        'age': age,
-      },
-    );
+    try {
+      await FirebaseFirestore.instance.collection('users').add(
+        {
+          'first name': firstName,
+          'last name': lastName,
+          'email': email,
+          'age': age,
+        },
+      );
+    } catch (e) {
+      print('Error adding user details: $e');
+    }
   }
 
   bool passwordConfirmed() {
