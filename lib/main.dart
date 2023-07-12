@@ -1,5 +1,6 @@
 import 'package:batikku/auth/main_page.dart';
-import 'package:batikku/ui/pages/detail_page.dart';
+import 'package:batikku/ui/pages/info_detail_page.dart';
+import 'package:batikku/ui/pages/home_navigation.dart';
 import 'package:batikku/ui/pages/home_page.dart';
 import 'package:batikku/ui/pages/login_page.dart';
 import 'package:batikku/ui/pages/onboarding_page.dart';
@@ -38,7 +39,8 @@ class MyApp extends StatelessWidget {
             }),
         '/onboardingpage': (context) => const OnboardingPage(),
         '/homepage': (context) => const HomePage(),
-        '/detailpage': (context) => DetailPage(result: 0),
+        '/homenav': (context) => const HomeBottomNavigationBar(),
+        '/detailpage': (context) => InfoDetailPage(result: 0),
       },
     );
   }

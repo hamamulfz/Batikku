@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -42,6 +43,9 @@ class _RegisterPageState extends State<RegisterPage> {
           password: _passwordController.text.trim(),
         );
 
+        FirebaseAuth.instance.currentUser!.updateDisplayName(
+            "${_firstNameController.text} ${_lastNameController.text}");
+
         // add user details
         addUserDetails(
             _firstNameController.text.trim(),
@@ -50,7 +54,7 @@ class _RegisterPageState extends State<RegisterPage> {
             int.parse(_ageController.text.trim()));
 
         if (!context.mounted) return;
-        Navigator.of(context).pushReplacementNamed('/homepage');
+        Navigator.of(context).pushReplacementNamed('/homenav');
       }
     } catch (e) {
       showDialog(
@@ -76,10 +80,11 @@ class _RegisterPageState extends State<RegisterPage> {
   Future addUserDetails(
       String firstName, String lastName, String email, int age) async {
     try {
-      await FirebaseFirestore.instance.collection('users').add(
+      final uid = FirebaseAuth.instance.currentUser!.uid;
+      await FirebaseFirestore.instance.collection('users').doc("$uid").set(
         {
-          'first name': firstName,
-          'last name': lastName,
+          'first_name': firstName,
+          'last_name': lastName,
           'email': email,
           'age': age,
         },

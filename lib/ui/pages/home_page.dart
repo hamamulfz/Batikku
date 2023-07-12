@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:batikku/main.dart';
 import 'package:batikku/shared/theme.dart';
-import 'package:batikku/ui/pages/detail_page.dart';
+import 'package:batikku/ui/pages/info_detail_page.dart';
 import 'package:camera/camera.dart';
 
 import 'package:flutter/material.dart';
@@ -219,7 +219,7 @@ class _HomePageState extends State<HomePage> {
                       .push(
                     MaterialPageRoute(
                       builder: (context) =>
-                          DetailPage(result: results.average()!),
+                          InfoDetailPage(result: results.average()!),
                     ),
                   )
                       .then(

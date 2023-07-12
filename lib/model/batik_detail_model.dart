@@ -12,4 +12,13 @@ class BatikDetailModel {
     this.images,
     this.price,
   );
+
+  toJson() {
+    return {
+      "id": id,
+      "name": name,
+      "desc": desc,
+      "price": price,
+    };
+  }
 }

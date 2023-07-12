@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:batikku/shared/theme.dart';
+import 'package:batikku/ui/pages/home_navigation.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,7 +33,15 @@ class _SplashPageState extends State<SplashPage>
       // Mengatur durasi berapa lama animasi di splash screen berjalan
       const Duration(seconds: 3),
       () {
-        Navigator.of(context).pushNamed('/onboardingpage');
+        final user = FirebaseAuth.instance.currentUser;
+        if (user != null) {
+          print("replace");
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => HomeBottomNavigationBar(),
+          ));
+        } else {
+          Navigator.of(context).pushReplacementNamed('/onboardingpage');
+        }
       },
     );
   }

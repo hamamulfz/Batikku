@@ -1,5 +1,6 @@
 import 'package:batikku/shared/theme.dart';
 import 'package:batikku/ui/pages/forgot_pw_page.dart';
+import 'package:batikku/ui/pages/home_navigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,7 +28,10 @@ class _LoginPageState extends State<LoginPage> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
-      Navigator.of(context).pushNamed('/homepage');
+      await Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => HomeBottomNavigationBar(),
+      ));
+      setState(() {});
     } catch (e) {
       showDialog(
         context: context,
